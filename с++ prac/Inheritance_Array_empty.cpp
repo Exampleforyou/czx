@@ -142,6 +142,10 @@ public:
 
 	double& operator[](int index)
 	{
+		// обработка ошибочных индексов
+		if (index < 0)		   { throw "Index less than zero!"; }
+		if (index > count - 1) { throw "too big index"; }
+
 		//перегрузка оператора []
 		return ptr[index];
 	}
@@ -159,6 +163,16 @@ public:
 		cout << "}";
 	}
 
+	double IndexOf(double value)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			if (ptr[i] == value) { return i; }
+		}
+		// если он не нашёл такого элемента и смог выйти и цикла возврат ошибки (-1)
+		return -1;
+	}
+
 };
 
 class MyArrayChild : public MyArrayParent
@@ -166,7 +180,7 @@ class MyArrayChild : public MyArrayParent
 public:
 	//используем конструктор родителя. Нужно ли что-то ещё?
 	MyArrayChild(int Dimension = 100)  : MyArrayParent(Dimension)            { cout << "\nMyArrayChild constructor"; }
-	MyArrayChild(double* arr, int len) : MyArrayParent(double* arr, int len) { cout << "\nMyArrayChild constructor"; }
+	MyArrayChild(double* arr, int len) : MyArrayParent(arr, len) { cout << "\nMyArrayChild constructor"; }
 
 	~MyArrayChild() { cout << "\nMyArrayChild destructor\n"; }
 
@@ -233,11 +247,65 @@ public:
 	//void InsertAt(double value, int index = -1);
 
 	//выделение подпоследовательности
-	//MyArrayChild SubSequence(int StartIndex = 0, int Length = -1)
+	MyArrayChild SubSequence(int StartIndex = 0, int Length = -1)
+	{
+		// просто возвращаем копию нашего массива
+		if (Length == -1 and StartIndex == 0) { return MyArrayChild(ptr, count); }
+
+		// Нормализируем длину если она не задана
+		if (Length == -1)
+		{
+			Length = count - StartIndex;
+		}
+
+		double* new_array = new double[Length];
+
+		for (int i = StartIndex; i <StartIndex + Length; i++)
+		{
+			new_array[i - StartIndex] = ptr[i];
+		}
+
+		MyArrayChild ch = MyArrayChild(new_array, Length);
+		delete[] new_array;
+		return ch;
+		
+	}
+
+
 
 	//добавление элемента в конец
-	//operator + ?
 
+	//operator + ?
+	
+	MyArrayChild operator+(const MyArrayChild& other)
+	{
+		int new_count = max(this->count, other.count);
+
+		MyArrayChild new_array = MyArrayChild(new_count);
+
+		// суммируем все элементы, которые можно суммировать
+		// остальные, мы просто примишем в конце для возможности сложения массивов разной длины
+		for (int i = 0; i < min(this->count, other.count); i++)
+		{
+			new_array.ptr[i] = this->ptr[i] + other.ptr[i];
+		}
+		if (new_count = this->count)
+		{
+			for (int i = count; i < new_count; i++)
+			{
+				new_array.ptr[i] = this->count;
+			}
+		}
+		else
+		{
+			for (int i = count; i < new_count; i++)
+			{
+				new_array.ptr[i] = other.count;
+			}
+		}
+		return new_array;
+		
+	}
 
 };
 
@@ -322,7 +390,7 @@ void HandleArray(double* arr, int len, double& min, double& max, double& mean)
 {
 	//дз
 }
-
+/*
 int main()
 {
 	int x = 1; int* p; p = &x; g(p); cout << x << "\n";
@@ -351,14 +419,4 @@ int main()
 	char c; cin >> c;
 	return 0;
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+*/

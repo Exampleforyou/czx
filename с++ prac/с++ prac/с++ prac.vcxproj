@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="..\FigureInherit_example.cpp" />
     <ClCompile Include="..\Inheritance_Array_empty.cpp" />
+    <ClCompile Include="..\Matrices_empty.cpp" />
+    <ClCompile Include="..\String_empty.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

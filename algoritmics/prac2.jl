@@ -1,9 +1,9 @@
-function fastpow(a, n) #n какое-то натуральное + 0 a - действительное
+function fastpow(a::T, n) where T #n какое-то натуральное + 0 a - действительное
     # b^k * p = a^n
     #b0, k0, p = a, n, 1
     #конец цикла при k = 0
 
-    b, k, p = a, n, one(T)
+    b, k, p = a, n, one(a)
     while k != 0
         # (b*b)^(k/2) * p = a^n
         if k % 2 == 0
@@ -29,6 +29,17 @@ end
 
 
 function fibonachi(n)
+    Basa_M = [1  1; 1  0]
+    Small_M = [1; 0]
+
+    # [F_n F_n-1] = [1 1; 1 0]^n * [1; 0] = Basa_M^n * Small_M
+
+    Big_M = fastpow(Basa_M, n)
+    M = Big_M * Small_M
+
+    return M[1]
+
+
 
 end
 
@@ -47,7 +58,7 @@ function fastlog(a, x, e)
     # |tlog_a(z)| < e
     # |t| < e , |log_a(z)| < 1 1/a < z < a
 
-    while t > e || 1/a > z || z > a
+    while 1/a > z || z > a || t > e
         if 1/a > z
             y, z, t = y-t, z*a, t
         elseif  z > a
@@ -59,6 +70,5 @@ function fastlog(a, x, e)
     return y
 end
 
+a = fibonachi(5)
 
-r = fastlog(1/2,4, 0.001)
-R = Residue(123)
