@@ -64,11 +64,6 @@ function diaphant_solve(a::T, b::T, c::T) where T
     return x, y
 end
 
-function Base.divrem(a::Plolynom{T}, b::Plolynom{T}) where T
-    
-    
-end
-
 
 struct Rsidue{T, M}
 
@@ -102,7 +97,7 @@ function inverse(R::Rsidue{T, M}) where {T, M}
     if d == 1
         return u
     else
-        return Base.zero(T)
+        return zero(T)
     end
 end
 
@@ -127,7 +122,7 @@ end
 
 struct Plolynom{T}
 
-    #<1, t, t^2 ... t^n>
+    #<1, t, t^n ... t^n>
     coefs::Vector{T}
     Plolynom{T}(coefs::Vector{T}) where T = new(coefs)
 
@@ -140,6 +135,12 @@ end
 function one(::Type{Plolynom{T}}) where {T}
     return Plolynom{T}([1])
 end
+
+function Base.divrem(a::Plolynom{T}, b::Plolynom{T}) where T
+    
+    return 0
+end
+
 
 function Base. +(p1::Plolynom{T}, p2::Plolynom{T}) where T
     v1 = p1.coefs
@@ -196,7 +197,7 @@ println(PlRs1)
 
 println(PlRs1 + PlRs2)
 
-# RsPl1 = Rsidue{Plolynom{Int}, p1.coefs}(p2)
+RsPl1 = Rsidue{Plolynom{Int}, p1.coefs}(p2)
 # RsPl2 = Rsidue{Plolynom{Int}, p1.coefs}(p1)
 
 

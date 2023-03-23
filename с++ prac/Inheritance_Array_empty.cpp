@@ -30,7 +30,7 @@ public:
 		cout << "\nMyArrayParent constructor " << this;
 		//заполнить массив ptr, заполнить поля
 		ptr = new double[len];
-		capacity = len;
+		capacity = (len > 128) ? len : 128;
 		count = len;
 		for (int i = 0; i < len; i++)
 		{
@@ -224,7 +224,7 @@ public:
 	}
 
 	//вставка элемента
-	void InsertAt(double value, int index = -1)
+	virtual void InsertAt(double value, int index = -1)
 	{
 		if (index == -1 || index == count)
 			push(value);
@@ -236,15 +236,6 @@ public:
 		ptr[index] = value;
 		count++;
 	}
-
-	//удаление элемента
-	//void RemoveAt(int index = -1);
-
-	//поиск элемента
-	//void IndexOf(double value, bool bFindFromStart = true);
-
-	//вставка элемента
-	//void InsertAt(double value, int index = -1);
 
 	//выделение подпоследовательности
 	MyArrayChild SubSequence(int StartIndex = 0, int Length = -1)
@@ -272,9 +263,6 @@ public:
 	}
 
 
-
-	//добавление элемента в конец
-
 	//operator + ?
 	
 	MyArrayChild operator+(const MyArrayChild& other)
@@ -289,7 +277,7 @@ public:
 		{
 			new_array.ptr[i] = this->ptr[i] + other.ptr[i];
 		}
-		if (new_count = this->count)
+		if (new_count == this->count)
 		{
 			for (int i = count; i < new_count; i++)
 			{
@@ -305,6 +293,40 @@ public:
 		}
 		return new_array;
 		
+	}
+
+	/*Вариант 30
+	Верните из функции новый массив (типа
+	MySortedArray/MyArrayChild), в котором удалены элементы,
+	отклоняющиеся от среднего арифметического в массиве «очень
+	далеко» (не более, чем величину p * mean(arr), где p – параметр
+	функции)
+*/
+	double Mean()
+	{
+		double summ = 0;
+		for (int i = 0; i < count; i++)
+		{
+			summ += ptr[i];
+		}
+		return summ / count;
+	}
+
+	MyArrayChild NoMean(double p = 1)
+	{
+		MyArrayChild NoMean_array(count);
+		double mean = this->Mean();
+
+		for (int i, j = 0; i < count; i++)
+		{
+			if (ptr[i] <= p*mean)
+			{
+				NoMean_array.push(ptr[i]);
+			}
+
+		}
+		return NoMean_array;
+
 	}
 
 };
@@ -355,6 +377,19 @@ protected:
 public:
 	//используем конструктор родителя. Нужно ли что-то ещё?
 	MySortedArray(int Dimension = 100) : MyArrayChild(Dimension) { cout << "\nMySortedArray constructor"; }
+	MySortedArray(double* arr, int len) : MyArrayChild(arr, len)
+	{
+		// bubble sort
+
+		int i, j;
+		for (i = 0; i < len - 1; i++)
+
+			// Last i elements are already
+			// in place
+			for (j = 0; j < len - i - 1; j++)
+				if (arr[j] > arr[j + 1])
+					swap(arr[j], arr[j + 1]);
+	}
 	~MySortedArray() { cout << "\nMySortedArray destructor\n"; }
 
 	int IndexOf(double value, bool bFindFromStart = true)
@@ -390,10 +425,9 @@ void HandleArray(double* arr, int len, double& min, double& max, double& mean)
 {
 	//дз
 }
-/*
+
 int main()
 {
-	int x = 1; int* p; p = &x; g(p); cout << x << "\n";
 	if (true)
 	{
 		MyArrayParent arr;
@@ -419,4 +453,3 @@ int main()
 	char c; cin >> c;
 	return 0;
 }
-*/

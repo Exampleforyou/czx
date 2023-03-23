@@ -119,9 +119,9 @@ public:
 		}
 		*/
 
-		for (char* p1 = &p[start_index]; p1!='\0'; p1++)
+		for (char* p1 = &p[start_index]; *p1!='\0'; p1++)
 		{
-			if (*p1 == c) return p1 - p;
+			if (*p1 == c) return int(p1 - p);
 		}
 		return -1;
 	}
@@ -162,9 +162,9 @@ public:
 
 		for (char* p1 = &p[start_index - 1]; p1!=p ; p1--)
 		{
-			if (*p1 == c) return p1 - p;
+			if (*p1 == c) return int(p1 - p);
 		}
-
+		return -1;
 	}
 
 };
@@ -181,7 +181,7 @@ void copy(char* source, char* dect)
 	// сложный но красивый вариант
 }
 
-
+/*
 int main()
 {
 	if (true)
@@ -191,7 +191,7 @@ int main()
 		s.print();
 
 		cout << s.IndexOf('t') << endl;;
-		/*
+		
 		BaseString s1 = s;
 		s1.print();
 		BaseString s2;
@@ -199,10 +199,11 @@ int main()
 		s2 = s + s1;
 		s2.print();
 		s1 = s2 + s;
-		s1.print();
-		*/
+		s1.print()
+
 	}
 	char c; cin>>c;
 	return 0;
 }
 
+*/

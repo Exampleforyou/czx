@@ -11,10 +11,8 @@ function eyler(n)
     return s
 end
 
-function sin_(x, e)
-    s = 0
-    a = x
-    k = 2
+function sin_(x, e=0)
+    s = 0; a = x; k = 2
     if e != 0
         while abs(a) > e
             s += a
@@ -32,7 +30,7 @@ function sin_(x, e)
 end
 
 function exp_(x, e=0)
-    s = 1; a = 1; k = 1
+    s = 1; a = x; k = 1
     if e != 0
         while abs(a) > e
             s += a
@@ -49,6 +47,14 @@ function exp_(x, e=0)
     return s
 end
 
+function solve_lin(A::Matrix{T}, B::Vector{T}) where T
+    Ab = [A b]
+    rang = reduce!(Ab) # Привести к ступенчатому виду
+    if rang == n
+        return solve_triangle(Ab)
+    end
+end
+
 
 println(sin_(3.14/2, 0.001))
 # println(sin_(3.14/2))
@@ -57,4 +63,5 @@ println(sin_(3.14/2, 0.001))
 println(eyler(1337))
 
 println(exp_(1))
-println(" моя ф-ия = $(exp_(2)) встроенная exp = $(exp(2))")
+println(" моя ф-ия = $(exp_(20)) встроенная exp = $(exp(20))")
+
