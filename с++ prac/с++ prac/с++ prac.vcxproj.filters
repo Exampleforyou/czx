@@ -15,16 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\FigureInherit_example.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\Inheritance_Array_empty.cpp">
+    <ClCompile Include="FigureInherit_example.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\String_empty.cpp">
+    <ClCompile Include="String_empty.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\Matrices_empty.cpp">
+    <ClCompile Include="week 7 str.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrices_empty.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Inheritance_Array_empty.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
