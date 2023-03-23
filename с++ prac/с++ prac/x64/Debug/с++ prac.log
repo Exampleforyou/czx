@@ -1,6 +1,0 @@
-﻿  main.cpp
-main.obj : error LNK2005: "void __cdecl HandleArray(double *,int,double &,double &,double &)" (?HandleArray@@YAXPEANHAEAN11@Z) already defined in Inheritance_Array_empty.obj
-main.obj : error LNK2005: "void __cdecl f(class MyArrayParent)" (?f@@YAXVMyArrayParent@@@Z) already defined in Inheritance_Array_empty.obj
-main.obj : error LNK2005: "void __cdecl g(int *)" (?g@@YAXPEAH@Z) already defined in Inheritance_Array_empty.obj
-Matrices_empty.obj : error LNK2005: main already defined in main.obj
-C:\!PROG2\с++ prac\x64\Debug\с++ prac.exe : fatal error LNK1169: one or more multiply defined symbols found
